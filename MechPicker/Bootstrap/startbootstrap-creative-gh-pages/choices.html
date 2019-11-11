@@ -1,0 +1,386 @@
+ <!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Decision Time</title>
+
+  <!-- Font Awesome Icons -->
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700" rel="stylesheet">
+  <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
+
+  <!-- Plugin CSS -->
+  <link href="vendor/magnific-popup/magnific-popup.css" rel="stylesheet">
+
+  <!-- Theme CSS - Includes Bootstrap -->
+  <link href="css/creative.min.choices.css" rel="stylesheet">
+  <link href="css/creative.min.choices.css" rel="stylesheet">
+
+  <script src="js/angular.min.js"></script>
+  
+</head>
+
+<body id="page-top" ng-app="POSTapp">
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand js-scroll-trigger" href="index.html">MechPicker</a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto my-2 my-lg-0">
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#about">Sizes</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#services">Switches</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#portfolio">The Community</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Masthead -->
+  <header class="masthead">
+    <div class="container h-100">
+      <div class="row h-100 align-items-center justify-content-center text-center">
+        <div class="col-lg-10 align-self-end">
+          <h1 class="text-uppercase text-white font-weight-bold">Pick your perfect keyboard</h1>
+          <hr class="divider my-4">
+        </div>
+        <div class="col-lg-8 align-self-baseline">
+          <p class="text-black-75 font-weight-light mb-5">Pick the size and switches below!</p>
+          <a class="btn btn-primary btn-xl js-scroll-trigger" href="#about">Start</a>
+        </div>
+      </div>
+    </div>
+  </header>
+<div ng-controller="POSTctrl">
+  <!-- About Section -->
+  <section class="page-section bg-primary" id="about">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-8 text-center">
+          <h2 class="text-white mt-0">Sizes</h2>
+          
+          <p class="text-white-50 mb-4">What can fit your desk space?</p>
+          <a class="btn btn-light btn-xl js-scroll-trigger" ng-click=firstRes('fs') href="#services">Fullsize</a>
+          <p class="text-white-50 mb-4">  Includes Number Pad</p>
+          <a class="btn btn-light btn-xl js-scroll-trigger" ng-click=firstRes('tn') href="#services">Ten Keyless</a>
+          <p class="text-white-50 mb-4"> Without Number Pad</p>
+          <a class="btn btn-light btn-xl js-scroll-trigger" ng-click=firstRes('six') href="#services">60%</a>
+          <p class="text-white-50 mb-4"> 60% of a Fullsize</p>
+          <a class="btn btn-light btn-xl js-scroll-trigger" ng-click=firstRes('none') href="#services">Dont Care</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section class="page-section" id="services">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center">
+      <h2 class="text-center mt-0">Do you want a clicky or a quiet switch  {{msg}}?</h2>
+      <div class= "wrapper"> 
+      <a class="btn btn-light btn-xl js-scroll-trigger" href={{clicky(fc)}}>Clicky</a>
+      <a class="btn btn-light btn-xl js-scroll-trigger" href={{silent(fc)}}>Silent</a>
+      </div>
+      <hr class="divider my-4">
+      <p class="text-black-50 mb-4">These are just some examples of Cherry Switches</p> </p>
+      <div class="row">
+        <div class="col-lg-3 col-md-6 text-center">
+          <div class="mt-5">
+            <img class="img-fluid" src="Project Resources/Switches/Cherry MX/MXBlue.gif" alt="">
+            <h3 class="h4 mb-2">Cherry MX Blue</h3>
+            <p class="text-muted mb-0">Tactile and Clicky</p>
+            <audio id="player" src="GXBlue.mp3"></audio>
+              <div>
+                <button onclick="document.getElementById('player').play()">Play</button>
+              </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6 text-center">
+            <div class="mt-5">
+              <img class="img-fluid" src="Project Resources/Switches/Cherry MX/MXBrown.gif" alt="">
+              <h3 class="h4 mb-2">Cherry MX Brown</h3>
+              <p class="text-muted mb-0">Tactile and Silent</p>
+              <audio id="player2" src="GXBrown.mp3"></audio>
+              <div>
+                <button onclick="document.getElementById('player2').play()">Play</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 text-center">
+            <div class="mt-5">
+              <img class="img-fluid" src="Project Resources/Switches/Cherry MX/MXRed.gif" alt="">
+              <h3 class="h4 mb-2">Cherry MX Red</h3>
+              <p class="text-muted mb-0">Linear and Silent</p>
+              <audio id="player3" src="GXRed.mp3"></audio>
+              <div>
+                <button onclick="document.getElementById('player3').play()">Play</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 text-center">
+              <div class="mt-5">
+                <img class="img-fluid" src="Project Resources/Switches/Cherry MX/MXLPRed.gif" alt="">
+                <h3 class="h4 mb-2">Cherry MX Low Profile</h3>
+                <p class="text-muted mb-0">Linear and Silent</p>
+                <audio id="player4" src="GLLinear.mp3"></audio>
+                <div>
+                    <button onclick="document.getElementById('player4').play()">Play</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </section>
+
+  <!-- Portfolio Section -->
+  <section id="portfolio">
+    <div class="container-fluid p-0">
+      <div class="row no-gutters">
+        <div class="col-lg-4 col-sm-6">
+          <a class="portfolio-box" href="img/portfolio/fullsize/1.jpg">
+            <img class="img-fluid" src="img/portfolio/thumbnails/1.jpg" alt="">
+            <div class="portfolio-box-caption">
+              <div class="project-category text-white-50">
+                u/Artemie093
+              </div>
+              <div class="project-name">
+                Dolphin 60
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-lg-4 col-sm-6">
+          <a class="portfolio-box" href="img/portfolio/fullsize/2.jpg">
+            <img class="img-fluid" src="img/portfolio/thumbnails/2.jpg" alt="">
+            <div class="portfolio-box-caption">
+              <div class="project-category text-white-50">
+                u/kwer_denker
+              </div>
+              <div class="project-name">
+                aanzee BLA
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-lg-4 col-sm-6">
+          <a class="portfolio-box" href="img/portfolio/fullsize/3.jpg">
+            <img class="img-fluid" src="img/portfolio/thumbnails/3.jpg" alt="">
+            <div class="portfolio-box-caption">
+              <div class="project-category text-white-50">
+                u/ninjapirate9901
+              </div>
+              <div class="project-name">
+                CA66 + HyperFuse
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-lg-4 col-sm-6">
+          <a class="portfolio-box" href="img/portfolio/fullsize/4.jpg">
+            <img class="img-fluid" src="img/portfolio/thumbnails/4.jpg" alt="">
+            <div class="portfolio-box-caption">
+              <div class="project-category text-white-50">
+                u/dantambok
+              </div>
+              <div class="project-name">
+                Jane V2 + DMG
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-lg-4 col-sm-6">
+          <a class="portfolio-box" href="img/portfolio/fullsize/5.jpg">
+            <img class="img-fluid" src="img/portfolio/thumbnails/5.jpg" alt="">
+            <div class="portfolio-box-caption">
+              <div class="project-category text-white-50">
+                u/TimidSA
+              </div>
+              <div class="project-name">
+                Porpoise60
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-lg-4 col-sm-6">
+          <a class="portfolio-box" href="img/portfolio/fullsize/6.jpg">
+            <img class="img-fluid" src="img/portfolio/thumbnails/6.jpg" alt="">
+            <div class="portfolio-box-caption p-3">
+              <div class="project-category text-white-50">
+                u/Brendanct
+              </div>
+              <div class="project-name">
+                GSKT-00-Z
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Call to Action Section -->
+  <section class="page-section bg-dark text-white">
+    <div class="container text-center">
+      <h2 class="mb-4">Check out the Community!</h2>
+      <a class="btn btn-light btn-xl" href="https://old.reddit.com/r/MechanicalKeyboards/">r/MechKeys</a>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="page-section" id="contact">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-8 text-center">
+          <h2 class="mt-0">Let's Get In Touch!</h2>
+          <hr class="divider my-4">
+          <p class="text-muted mb-5">Love keyboards, or want to give me a job?!</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-4 ml-auto text-center mb-5 mb-lg-0">
+          <i class="fas fa-phone fa-3x mb-3 text-muted"></i>
+          <div>+1 (870) 204-2284</div>
+        </div>
+        <div class="col-lg-4 mr-auto text-center">
+          <i class="fas fa-envelope fa-3x mb-3 text-muted"></i>
+          <!-- Make sure to change the email address in anchor text AND the link below! -->
+          <a class="d-block" href="mailto:contact@yourwebsite.com">zackerycfox@gmail.com</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-light py-5">
+    <div class="container">
+      <div class="small text-center text-muted">Copyright &copy; 2019 - Start Bootstrap</div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Plugin JavaScript -->
+  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+  <script src="vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+
+  <!-- Custom scripts for this template -->
+  <script src="js/creative.min.js"></script>
+
+</div>
+<script>
+    
+
+var app = angular.module('POSTapp',[]);
+app.controller('POSTctrl', function($scope,$http){
+
+$scope.sku = '';
+$scope.models = '';
+$scope.fullsized= '';
+$scope.tkl= '';
+$scope.sixty= '';
+$scope.clicky= '';
+$scope.silent= '';
+
+$scope.firstRes = function(firstChoice){
+$scope.fc = firstChoice;
+};
+
+$scope.clicky = function(fc){
+if (fc == 'fs')
+return 'FullSilentresults.html#!/?first=fullclick';
+
+if (fc == 'six')
+return 'FullSilentresults.html#!/?first=sixclick';
+
+if (fc == 'tn')
+return 'FullSilentresults.html#!/?first=tenclick';
+
+if (fc == 'none')
+return 'FullSilentresults.html#!/?first=noneclick';
+
+return "FullSilentresults.html";
+
+};
+
+$scope.silent = function(fc){
+if (fc == 'fs')
+return 'FullSilentresults.html#!/?first=full';
+
+if (fc == 'six')
+return 'FullSilentresults.html#!/?first=six';
+
+if (fc == 'tn')
+return 'FullSilentresults.html#!/?first=ten';
+
+if (fc == 'none')
+return 'FullSilentresults.html#!/?first=none';
+
+return "FullSilentresults.html";
+
+};
+$scope.makeURL = function(sku,models,fullsized){
+//var url = 'http://localhost:8080/newmodel/';
+
+    
+console.log(url);
+//Call the services
+
+$http.post(url).then(function (response) {
+
+if (response.data)
+$scope.output = response.data;
+$scope.msg = "Put Data Method Executed Successfully!";
+
+}, function (response) {
+
+$scope.msg = "Service not Exists";
+
+$scope.statusval = response.status;
+
+$scope.statustext = response.statusText;
+
+$scope.headers = response.headers();
+
+});
+
+};
+
+$http.get("http://localhost:8080/sku/models/fullsized")
+                                     .then(  function(response) 
+                                              
+                                                {
+                                                            console.log(response);
+                                         $scope.fullsized = response.data;});
+
+});
+</script>
+
+</body>
+
+</html>

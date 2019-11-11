@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Keyboard Results</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="css/heroic-features.css" rel="stylesheet">
+
+  <script src="js/angular.min.js"></script>
+
+</head>
+
+<body ng-app="Silentapp">
+<div ng-controller="Silentctrl">
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">MechPicker</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="choices.html">Start Over
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item active">
+              <a class="nav-link" href="modelform.html">Add Model
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Content -->
+  <div class="container">
+
+    <!-- Jumbotron Header -->
+    <header class="jumbotron my-4">
+      <h1 class="display-3">Here are the Keyboards for you!</h1>
+      <p class="lead">{{firstChoice}} and {{secondChoice}} keyboards.</p>
+    </header>
+
+    <!-- Page Features -->
+  <div class="row text-center" >
+
+      <div class="col-lg-3 col-md-6 mb-4" ng-repeat="keyboard in putout">
+        <div class="card h-100">
+          <img class="card-img-top" src="img/{{ keyboard.model.keyboard_pic}}" alt=""  height="200" width="400">
+          <div class="card-body">
+            <h4 class="card-title">{{keyboard.model.model}}</h4>
+            <p class="card-text">Price: ${{keyboard.model.price}} <br> Switch Brand: {{keyboard.switch.brand}} <br> Type: {{keyboard.switch.type}} 
+               </p>
+          </div>
+          <div class="card-footer">
+            <a href="#" class="btn btn-primary">Find Out More!</a>
+          </div>
+        </div>
+      </div>
+
+      
+
+    </div>
+    <!-- /.row -->
+
+  </div> 
+  <!-- /.container -->
+
+  <!-- Footer -->
+  <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; Your Website 2019</p>
+    </div>
+    <!-- /.container -->
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+
+  <!--Angular Section and Controller-->
+  <script>
+    var app = angular.module('Silentapp',[]);
+    app.controller('Silentctrl', function($scope,$http,$location){
+    
+    $scope.sku = '';
+    $scope.models = '';
+    $scope.fullsized= '';
+    $scope.tkl= '';
+    $scope.sixty= '';
+    $scope.clicky= '';
+    $scope.silent= '';
+    
+    $scope.firstChoice= 'size';
+    $scope.secondChoice= 'silent';
+    var choice = $location.search();
+    console.log(choice);
+    $scope.decision = choice.first;
+    console.log($scope.decision);
+    var url = 'http://localhost:8080/switch';
+        $http.get(url).then(function (response) {
+            
+            if (response.data)
+            $scope.swiFN = response.data;
+            $scope.msg = "Here is Fullsized and Silent";
+           
+            var out =  $scope.swiFN
+            return out;
+            }, function (response) {
+            
+            $scope.msg = "Service not Exists";
+            
+            $scope.statusval = response.status;
+            
+            $scope.statustext = response.statusText;
+            
+            $scope.headers = response.headers();
+            
+            });
+     var url = 'http://localhost:8080/model';
+          $http.get(url).then(function (response) {
+          
+          if (response.data)
+          $scope.modFN = response.data;
+          $scope.msg = "Here is Fullsized and Silent";
+         
+            var out =  $scope.modFN;
+            console.log("print");
+            return out;
+            console.log ( "DAMN IT you should have returned not Gotten HERE!!!.");
+          }, function (response) {
+          
+          $scope.msg = "Service not Exists";
+          
+          $scope.statusval = response.status;
+          
+          $scope.statustext = response.statusText;
+          
+          $scope.headers = response.headers();
+          
+          });
+
+    
+    $scope.makeSKU = function(input, $scope){
+      var lookUP = [];
+      var x =$scope.swiFN;
+      var y = $scope.modFN;
+      var SKUmod;
+      var SKUswh;
+      
+      var sku = input;
+
+      for(var i = 0; i < sku.length; i++ )
+      {
+
+        for(var a = 0; a < x.length; a++ )
+      { if (sku[i].switch_id == x[a].id) var SKUswh = x[a]; }
+
+      for(var a = 0; a < y.length; a++ )
+      { if (sku[i].model_id == y[a].id) var SKUmod = y[a];}
+        console.log(i);
+        console.log(SKUswh);
+        console.log(SKUmod);
+        console.log('what?');  
+        var modSwitch= {model: SKUmod, switch: SKUswh}
+        lookUP.push(modSwitch);
+        $scope.putout = lookUP;
+      }
+
+      console.log(lookUP);
+      
+    };
+    
+    $scope.makeURL = function(){
+      console.log($scope.decision);
+
+    }
+      //Silent Decisions
+    if($scope.decision=="full") {
+      var url = 'http://localhost:8080/sku/models/fullsized/silent';
+      $scope.firstChoice= 'fullsize';
+    } if($scope.decision=="ten") {
+      var url = 'http://localhost:8080/sku/models/tkl/silent';
+      $scope.firstChoice= 'Ten Keyless';
+    } if($scope.decision=="six") {
+      var url = 'http://localhost:8080/sku/models/sixty/silent';
+      $scope.firstChoice= '60%';
+
+      //Clicky Decisions
+    }if($scope.decision=="fullclick") {
+      var url = 'http://localhost:8080/sku/models/fullsized/clicky';
+      $scope.firstChoice= 'fullsize'; 
+      $scope.secondChoice= 'clicky';
+    } if($scope.decision=="tenclick") {
+      var url = 'http://localhost:8080/sku/models/tkl/clicky';
+      $scope.firstChoice= 'Ten Keyless';
+      $scope.secondChoice= 'clicky';
+    } if($scope.decision=="sixclick") {
+      var url = 'http://localhost:8080/sku/models/sixty/clicky';
+      $scope.firstChoice= '60%';
+      $scope.secondChoice= 'clicky';
+    }
+//Switch sound only
+  if($scope.decision=="noneclick") {
+      var url = 'http://localhost:8080/sku/switches/clicky';
+      $scope.firstChoice= 'Any size'; 
+      $scope.secondChoice= 'clicky';
+    } if($scope.decision=="none") {
+      var url = 'http://localhost:8080/sku/switches/silent';
+      $scope.firstChoice= 'Any size';
+      $scope.secondChoice= 'silent';
+    }
+    
+        
+    console.log(url);
+    //Call the services
+    
+    $http.get(url).then(function (response) {
+    
+    if (response.data)
+    $scope.output = response.data;
+    $scope.msg = "Here is Fullsized and Silent";
+    console.log($scope.output);
+    $scope.makeSKU($scope.output, $scope); 
+    }, function (response) {
+    
+    $scope.msg = "Service not Exists";
+    
+    $scope.statusval = response.status;
+    
+    $scope.statustext = response.statusText;
+    
+    $scope.headers = response.headers();
+    
+    });
+    
+    
+ //  $scope.makeSKU($scope);
+    
+  /*  };
+    $scope.makeURL();
+    /*
+    $http.get("http://localhost:8080/sku/models/fullsized/clicky")
+                                         .then(  function(response) 
+                                                  
+                                                    {
+                                                                console.log(response);
+                                             $scope.fullsized = response.data;}); */
+    
+    });
+    </script>  
+
+</div>
+</body>
+
+</html>

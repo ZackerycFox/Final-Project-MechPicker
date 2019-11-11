@@ -1,0 +1,88 @@
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.min.js"></script>
+</head>
+
+<body>
+<div ng-app="POSTapp" ng-controller="POSTctrl">
+
+
+	<label for="model">Model</label> 
+	<input ng-model="model" type="text" value="" /> <br />
+
+	<label for="fullsize">Fullsize?</label> 
+	<input ng-model="fullsize" type="text" value="" /> <br /> 
+
+	<label for="tkl">TKL?</label> 
+	<input ng-model="tkl" type="text" value="" /> <br />
+
+	<label for="sixty">Sixty?</label> 
+	<input ng-model="sixty" type="text" value="" /> <br />
+
+	<label for="price">MSRP</label> 
+	<input ng-model="price" type="text" value="" /> <br />
+
+	<label for="manufacture_id">Manufacture?</label> 
+	<input ng-model="manufacture_id" type="text" value="" /> <br />
+
+	<label for="keyboard_pic">jpg</label> 
+	<input ng-model="keyboard_pic" type="text" value="" /> <br /> 
+    
+    	<button type="button" value="Submit" ng-click="makeURL(model,fullsize,tkl,sixty,price,manufacture_id,keyboard_pic)">CLICK ME</button>
+    
+    {{msg}} 
+
+    <!--  THis is A COMMENT AREA THAT DO NOT CHANGE THE OUTPUT OF THE PAGE
+
+    MY POST GOAL URL IS:   http://localhost:8080/newmodel/notakeyboard/1/0/0/233/2/stupid  -->
+
+    
+</div>
+<script>
+    
+
+var app = angular.module('POSTapp',[]);
+app.controller('POSTctrl', function($scope,$http){
+
+$scope.model = '';
+$scope.fullsize = '';
+$scope.tkl= '';
+$scope.sixty= '';
+$scope.price= '';
+$scope.manufacture_id= '';
+$scope.keyboard_pic= '';
+
+    
+$scope.makeURL = function(model,fullsize,tkl,sixty,price,manufacture_id,keyboard_pic){
+var url = 'http://localhost:8080/newmodel/'+model+'/'+fullsize+'/'+tkl+'/'+sixty+'/'+price+'/'+manufacture_id+'/'+keyboard_pic
+
+    
+console.log(url);
+//Call the services
+
+$http.post(url).then(function (response) {
+
+if (response.data)
+$scope.output = response.data;
+$scope.msg = "Put Data Method Executed Successfully!";
+
+}, function (response) {
+
+$scope.msg = "Service not Exists";
+
+$scope.statusval = response.status;
+
+$scope.statustext = response.statusText;
+
+$scope.headers = response.headers();
+
+});
+
+};
+
+});
+
+    
+</script>
+    </body>
+</html>

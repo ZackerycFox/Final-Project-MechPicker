@@ -1,0 +1,85 @@
+<div class="form-style-5">
+
+    <!-- Custom styles for this template -->
+  <link href="css/modelform.css" rel="stylesheet">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.min.js"></script>
+
+    <form>
+        <div ng-app="POSTapp" ng-controller="POSTctrl">
+    <fieldset>
+    <legend><span class="number">1</span> Model Name</legend>
+    <input ng-model="model" type="text" value="" /> <br />
+
+    <legend><span class="number">2</span> Fullsize?</legend>
+    <input ng-model="fullsize" type="text" value="" /> <br /> 
+
+    <legend><span class="number">3</span> TKL?</legend>
+    <input ng-model="tkl" type="text" value="" /> <br />
+
+    <legend><span class="number">4</span> 60%?</legend>
+    <input ng-model="sixty" type="text" value="" /> <br />
+
+    <legend><span class="number">5</span> MSRP?</legend>
+    <input ng-model="price" type="text" value="" /> <br />
+
+    <legend><span class="number">6</span> Manufacture?</legend>
+    <input ng-model="manufacture_id" type="text" value="" /> <br />
+
+    <legend><span class="number">7</span> Picture</legend>
+    <input ng-model="keyboard_pic" type="text" value="" /> <br />
+          
+    <button type="button" value="Submit" ng-click="makeURL(model,fullsize,tkl,sixty,price,manufacture_id,keyboard_pic)">Submit</button>
+    {{msg}}
+    </form>
+    </div>
+</div>
+
+    <script>
+    
+
+    var app = angular.module('POSTapp',[]);
+     app.controller('POSTctrl', function($scope,$http){
+            
+    $scope.model = '';
+    $scope.fullsize = '';
+    $scope.tkl= '';
+    $scope.sixty= '';
+    $scope.price= '';
+    $scope.manufacture_id= '';
+    $scope.keyboard_pic= '';
+            
+                
+    $scope.makeURL = function(model,fullsize,tkl,sixty,price,manufacture_id,keyboard_pic){
+    var url = 'http://localhost:8080/newmodel/'+model+'/'+fullsize+'/'+tkl+'/'+sixty+'/'+price+'/'+manufacture_id+'/'+keyboard_pic
+            
+                
+    console.log(url);
+    //Call the services
+            
+    $http.post(url).then(function (response) {
+            
+    if (response.data)
+    $scope.output = response.data;
+    $scope.msg = "Put Data Method Executed Successfully!";
+            
+    }, function (response) {
+            
+    $scope.msg = "Service not Exists";
+            
+    $scope.statusval = response.status;
+            
+    $scope.statustext = response.statusText;
+            
+    $scope.headers = response.headers();
+            
+    });
+            
+    };
+            
+    });
+            
+                
+    </script>
+</body>
+</html>

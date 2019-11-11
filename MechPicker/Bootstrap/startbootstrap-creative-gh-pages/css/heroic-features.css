@@ -1,0 +1,20 @@
+/*!
+ * Start Bootstrap - Heroic Features (https://startbootstrap.com/template-overviews/heroic-features)
+ * Copyright 2013-2019 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-heroic-features/blob/master/LICENSE)
+ */
+body {
+  padding-top: 56px;
+}
+
+.jumbotron{
+  background-image:url("https://i.redd.it/9tsn617cudu31.jpg") ;
+  background-size: cover;
+}
+
+.display-3, .lead{
+  color: white;
+}
+
+footer{clear:left;
+}

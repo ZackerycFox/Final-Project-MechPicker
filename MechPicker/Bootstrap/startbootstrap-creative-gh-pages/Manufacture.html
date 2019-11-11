@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Keyboard Results</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="css/heroic-features.css" rel="stylesheet">
+
+  <script src="js/angular.min.js"></script>
+
+</head>
+
+<body ng-app="Silentapp">
+<div ng-controller="Silentctrl">
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">MechPicker</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="choices.html">Start Over
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item active">
+              <a class="nav-link" href="modelform.html">Add Model
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Content -->
+  <div class="container">
+
+    <!-- Jumbotron Header -->
+    <header class="jumbotron my-4">
+      <h1 class="display-3">Here's {{firstChoice}}'s Keyboards</h1>
+      <p class="lead">Take a look!</p>
+    </header>
+
+    <!-- Page Features -->
+  <div class="row text-center" >
+
+    <div class="col-lg-3 col-md-6 mb-4" ng-repeat="keyboard in output">
+      <div class="card h-100">
+        <img class="card-img-top" src="img/{{ keyboard.keyboard_pic}}" alt=""  height="200" width="400">
+        <div class="card-body">
+          <h4 class="card-title">{{keyboard.model}}</h4>
+          <p class="card-text">Price: ${{keyboard.price}} <br>
+             </p>
+        </div>
+        <div class="card-footer">
+          <a href="#" class="btn btn-primary">Find Out More!</a>
+        </div>
+      </div>
+    </div>
+
+      
+
+    </di
+    v>
+    <!-- /.row -->
+
+  </div>
+  <!-- /.container -->
+
+  <!-- Footer -->
+  <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; Your Website 2019</p>
+    </div>
+    <!-- /.container -->
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+
+  <!--Angular Section and Controller-->
+  <script>
+    var app = angular.module('Silentapp',[]);
+    app.controller('Silentctrl', function($scope,$http,$location){
+    
+    $scope.model_id = '';
+    $scope.models = '';
+    $scope.model = '';
+    $scope.manufacture_id = ''; 
+    
+    
+    $scope.firstChoice= '{{manufacture}}';
+    //$scope.secondChoice= 'silent';
+    var choice = $location.search();
+    console.log(choice);
+    $scope.decision = choice.first;
+    console.log($scope.decision);
+
+    var url = 'http://localhost:8080/model';
+          $http.get(url).then(function (response) {
+          
+          if (response.data)
+          $scope.manID = response.data;
+          $scope.msg = "Here is Fullsized and Silent";
+         
+            var out =  $scope.manID;
+            console.log("print");
+            return out;
+            console.log ( "DAMN IT you should have returned not Gotten HERE!!!.");
+          }, function (response) {
+          
+          $scope.msg = "Service not Exists";
+          
+          $scope.statusval = response.status;
+          
+          $scope.statustext = response.statusText;
+          
+          $scope.headers = response.headers();
+          
+          });
+
+
+    $scope.makeMod = function(input, $scope){
+      var lookUP = [];
+      var x = $scope.modID;
+      var y = $scope.manID;
+      var modManu;
+      var manuMod;
+      
+      var manufacture = input;
+
+      for(var i = 0; i <models.length; i++ )
+      {
+
+        for(var a = 0; a < x.length; a++ )
+      { if (models[i].model_id == x[a].id) var manuMod = x[a]; }
+
+      for(var a = 0; a < y.length; a++ )
+      { if (models[i].model_id == y[a].id) var modManu = y[a];}
+        console.log(i);
+        console.log(manuMod);
+        console.log(modManu);
+        console.log('what?');  
+        var modManufacture= {model: modManu, manufacture: manuMod}
+        lookUP.push(modManufacture);
+        $scope.putout = lookUP;
+      }
+
+      console.log(lookUP);
+      
+    };
+    
+    $scope.makeURL = function(){
+      console.log($scope.decision);
+
+    
+      
+    if($scope.decision=="corsair") {
+      console.log('URL');
+      var url = 'http://localhost:8080/models/manufacture_id/2';
+      $scope.firstChoice= 'Corsair';
+      console.log('URLS');
+    } if($scope.decision=="coolermaster") {
+      var url = 'http://localhost:8080/models/manufacture_id/3';
+      $scope.firstChoice= 'CoolerMaster';
+
+    } if($scope.decision=="hyperx") {
+      var url = 'http://localhost:8080/models/manufacture_id/4';
+      $scope.firstChoice= 'HyperX';
+
+    } if($scope.decision=="logitech") {
+      var url = 'http://localhost:8080/models/manufacture_id/6';
+      $scope.firstChoice= 'Logitech';
+
+    } if($scope.decision=="razer") {
+      var url = 'http://localhost:8080/models/manufacture_id/7';
+      $scope.firstChoice= 'Razer';
+
+    } if($scope.decision=="anne") {
+      var url = 'http://localhost:8080/models/manufacture_id/8';
+      $scope.firstChoice= 'Anne';
+
+    } if($scope.decision=="massdrop") {
+      var url = 'http://localhost:8080/models/manufacture_id/9';
+      $scope.firstChoice= 'Massdrop';
+
+    } if($scope.decision=="ducky") {
+      var url = 'http://localhost:8080/models/manufacture_id/11';
+      $scope.firstChoice= 'Ducky';
+
+    } if($scope.decision=="vortex") {
+      var url = 'http://localhost:8080/models/manufacture_id/12';
+      $scope.firstChoice= 'Vortex';
+    }
+      console.log('URL');
+
+        
+    console.log(url);
+    //Call the services
+    
+    $http.get(url).then(function (response) {
+    
+      if (response.data)
+    $scope.output = response.data;
+    $scope.msg = "Here is Fullsized and Silent";
+    console.log($scope.output);
+    //$scope.makeMod($scope.output, $scope); 
+    }, function (response) {
+    
+    $scope.msg = "Service not Exists";
+    
+    $scope.statusval = response.status;
+    
+    $scope.statustext = response.statusText;
+    
+    $scope.headers = response.headers();
+    
+    });
+    
+   };
+   console.log('call make URLX  ');
+    $scope.makeURL();
+   
+    $http.get("http://localhost:8080/sku/models/fullsized/clicky")
+                                         .then(  function(response) 
+                                                  
+                                                    {
+                                                                console.log(response);
+                                             $scope.fullsized = response.data;});
+    
+    });
+    </script>  
+
+</div>
+</body>
+
+</html>

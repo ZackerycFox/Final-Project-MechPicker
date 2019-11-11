@@ -1,0 +1,94 @@
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.min.js"></script>
+</head>
+
+<body>
+<div ng-app="POSTapp" ng-controller="POSTctrl">
+
+
+	<label for="brand">Brand?</label> 
+	<input ng-model="brand" type="text" value="" /> <br />
+
+	<label for="type">Type?</label> 
+	<input ng-model="type" type="text" value="" /> <br /> 
+
+	<label for="tactile">Tactile?</label> 
+	<input ng-model="tactile" type="text" value="" /> <br />
+
+	<label for="clicky">Clicky?</label> 
+	<input ng-model="clicky" type="text" value="" /> <br />
+
+	<label for="linear">Linear?</label> 
+	<input ng-model="linear" type="text" value="" /> <br />
+
+	<label for="silent">Silent?</label> 
+	<input ng-model="silent" type="text" value="" /> <br />
+
+	<label for="switch_pic">jpg</label> 
+    <input ng-model="switch_pic" type="text" value="" /> <br />
+    
+    <label for="switch_sound">mp3</label> 
+	<input ng-model="switch_sound" type="text" value="" /> <br />
+    
+		<button type="button" value="Submit" ng-click=
+		"makeURL(brand,type,tactile,clicky,linear,silent,switch_pic,switch_sound)">CLICK ME</button>
+    
+    {{msg}} 
+
+    <!--  THis is A COMMENT AREA THAT DO NOT CHANGE THE OUTPUT OF THE PAGE
+
+    MY POST GOAL URL IS:   http://localhost:8080/newmodel/notakeyboard/1/0/0/233/2/stupid  -->
+
+    
+</div>
+<script>
+    
+
+var app = angular.module('POSTapp',[]);
+app.controller('POSTctrl', function($scope,$http){
+
+$scope.brand = '';
+$scope.type = '';
+$scope.tactile= '';
+$scope.clicky= '';
+$scope.linear= '';
+$scope.silent= '';
+$scope.switch_pic= '';
+$scope.switch_sound= '';
+
+    
+$scope.makeURL = function(brand,type,tactile,clicky,linear,silent,switch_pic,switch_sound){
+var url = 'http://localhost:8080/newswitch/'+brand+'&'+type+'&'+tactile+'&'+clicky+'&'+linear+'&'
++silent+'&'+switch_pic+'&'+switch_sound
+
+    
+console.log(url);
+//Call the services
+
+$http.post(url).then(function (response) {
+
+if (response.data)
+$scope.output = response.data;
+$scope.msg = "Put Data Method Executed Successfully!";
+
+}, function (response) {
+
+$scope.msg = "Service not Exists";
+
+$scope.statusval = response.status;
+
+$scope.statustext = response.statusText;
+
+$scope.headers = response.headers();
+
+});
+
+};
+
+});
+
+    
+</script>
+    </body>
+</html>
